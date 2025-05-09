@@ -5,7 +5,7 @@ SYS_RAM = RAM()
 commands = {
     'STO': "SYS_RAM.STO",
     'LDA': "SYS_RAM.LDA", ## Loads to register A
-    'PTR': "SYS_RAM.SetPointer",
+    'SET': "SYS_RAM.SetPointer",
     'DIS': "SYS_RAM.print",
     'RGA': "SYS_RAM.STO_REGISTER",
     'JMP': "self.jumpTo",

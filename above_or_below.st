@@ -1,10 +1,10 @@
 # Store a random number
-PTR 0x00
+SET 0x00
 RAN
 RGA
 
 # Store input into 0x01
-PTR 0x01
+SET 0x01
 INP 'Guess a number! '
 RGA 
 
@@ -15,7 +15,7 @@ JEQ 16
 JMP 22
 
 # Display Success
-PTR 0x02
+SET 0x02
 STO "You win"
 DIS
 HLT
@@ -26,12 +26,12 @@ GRE 0x00
 JEQ 29
 JMP 34
 
-PTR 0x02
+SET 0x02
 STO "Higher"
 DIS
 JMP 6
 
-PTR 0x02
+SET 0x02
 STO "Lower"
 DIS
 JMP 6
