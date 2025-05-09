@@ -7,8 +7,8 @@
         "type": "debugpy",
         "request": "launch",
         "program": "${workspaceFolder}/interpreter.py",
-        "args": ["${file}"], // or change to "${file}" to run the open file
-        "console": "integratedTerminal"
+        "args": ["${file}"], 
+        "console": "integratedTerminal",
       }
     ]
   }
