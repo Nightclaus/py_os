@@ -1,0 +1,14 @@
+// .vscode/launch.json
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Run .st file",
+        "type": "debugpy",
+        "request": "launch",
+        "program": "${workspaceFolder}/interpreter.py",
+        "args": ["${file}"], // or change to "${file}" to run the open file
+        "console": "integratedTerminal"
+      }
+    ]
+  }
