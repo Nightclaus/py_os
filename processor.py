@@ -40,7 +40,7 @@ class Core():
             line = self.lines[self.program_counter].strip()
             self.program_counter+=1
 
-            if not line or line.startswith('#'):
+            if not line or line.startswith('//'):
                 continue  # Skip empty lines or comments
 
             interableLine = line.split(maxsplit=1)

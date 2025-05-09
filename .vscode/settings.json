@@ -1,6 +1,10 @@
 {
   "files.associations": {
-    "*.st": "asm"
-  }
+    "*.st": "dart"
+  },
+  "dart.analysisExcludedFolders": [
+    "py_os" 
+  ]
 }
+
   

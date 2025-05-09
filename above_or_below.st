@@ -1,26 +1,26 @@
-# Store a random number
+// Store a random number
 SET 0x00
 RAN
 RGA
 
-# Store input into 0x01
+// Store input into 0x01
 SET 0x01
 INP 'Guess a number! '
 RGA 
 
-# Check if it is correct
+// Check if it is correct
 LDA 0x01
 CMP 0x00
 JEQ 16
 JMP 22
 
-# Display Success
+// Display Success
 SET 0x02
 STO "You win"
 DIS
 HLT
 
-# Higher or lower
+// Higher or lower
 LDA 0x01
 GRE 0x00
 JEQ 29
