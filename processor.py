@@ -56,8 +56,7 @@ class Core():
                     self.registerA = randint(0, 100)
                     continue
                 else:
-                    ## Sanitise
-                    args = interableLine[1] if len(interableLine) > 1 else ""
+                    args = interableLine[1] if len(interableLine) > 1 else "" ## Sanitise
                 self.registerA = eval(f"{commands[opcode]}({args})")
             except Exception as e:
                 print(f"Error: {e}")
