@@ -1,0 +1,7 @@
+SET 0x00
+STO 'True'
+NOT
+DIS
+
+INC 0x00
+DIS

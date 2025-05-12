@@ -17,6 +17,9 @@ commands = {
     "INP": "self.input",
     "ADD": "self.add",
     "RAN": "randint",
+    "INC": "self.increment",
+    "NOT": "self.inverse",
+    "JPA": "self.jumpToValueInRegisterA",
 }
 
 class Core():
@@ -87,6 +90,34 @@ class Core():
         except:
             print('[Cannot Add] Expected type INT')
             return False
+    
+    def increment(self, pointerArg): ## CHECK THIS
+        try:
+            number = int(SYS_RAM.LDA(pointerArg))
+            new_number = number+1
+            SYS_RAM.SetPointer(pointerArg)
+            SYS_RAM.STO(new_number)
+            return new_number
+        except:
+            print('[Cannot Increment] Expected type INT')
+            return False
+    
+    def inverse(self, pointerArg=None):
+        if pointerArg is None:
+            boolean = self.registerA
+        else:
+            boolean = SYS_RAM.LDA(pointerArg)
+        if boolean.lower() in ['true', 'false']:
+            return not boolean
+        else:
+            print('[Cannot inverse] Expected type BOOLEAN')
+            return self.registerA
+        
+    def jumpToValueInRegisterA(self):
+        try:
+            self.jumpTo(int(self.registerA))
+        except:
+            print('[Cannot Jump] Register A expected type INT')
     
     def isGreaterThanRegA(self, pointerArg):
         arg = str(SYS_RAM.LDA(pointerArg))
