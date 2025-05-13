@@ -1,7 +1,7 @@
-SET 0x00
-STO 'True'
+RAN
+DIS
+INC 1
+LDA 0
+CMP 1
 NOT
-DIS
-
-INC 0x00
-DIS
+JEQ 1
