@@ -14,7 +14,6 @@ COMMAND_LOOKUP = {
         CONTENT,
         "JMP 21",
         CONTENT,
-        END,
         ],
     "while": [
         "LDA 0x01",
@@ -22,7 +21,6 @@ COMMAND_LOOKUP = {
         "JEQ 19",
         CONTENT,
         "JMP START_WHILE_1",
-        END
     ],
     "repeat": [
         CONTENT,
@@ -31,13 +29,10 @@ COMMAND_LOOKUP = {
         "CMP 0x03",   # Pointer for arg 2
         "NOT",       # Not completed
         "JEQ START_REPEAT_1",
-        END
     ],
     "storage": [
-        "SET 0x02", # Any free pointer
-        "STO 4",    # Limit
-        "SET 0x03", # Any free pointer
-        "STO 0",    # Amount of time completed
+        "SET 0x02",
+        "STO 4",
     ]
 }
 

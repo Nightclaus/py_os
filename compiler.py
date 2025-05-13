@@ -32,7 +32,7 @@ with open('pre_compiled_test.st') as file:
                     IfElse(line[1], line[3], Print(line[1]), []) # Hardcoded for now
                 ])
 
-    output = finalise_jumps_in_context(flatten(output))
+    output = finalise_jumps_in_context(flatten(output.append("HLT")))
     for i in output:
         print(i)
     
