@@ -1,11 +1,11 @@
-SET value_a
+SET 0x00
 STO 12
-SET value_b
+SET 0x01
 STO 10
-LDA value_a
-CMP value_b
-JEQ 11
-LDA value_a
-DIS
+LDA 0x00
+CMP 0x01
+JEQ 9
 JMP 11
+LDA 0x00
+DIS
 HLT
