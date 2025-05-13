@@ -12,8 +12,8 @@ commands = {
     'JEQ': "self.jumpIf", ## Jumps only if register A is true
     'CMP': "self.compare", ## Compares Argument with Register A
     'HLT': "return", 
-    "GRE": "self.isGreaterThanRegA",
-    "LES": "self.isLesserThanRegA",
+    "GRE": "self.isRegABigger",
+    "LES": "self.isRegASmaller",
     "INP": "self.input",
     "ADD": "self.add",
     "RAN": "randint",
@@ -119,20 +119,20 @@ class Core():
         except:
             print('[Cannot Jump] Register A expected type INT')
     
-    def isGreaterThanRegA(self, pointerArg):
+    def isRegABigger(self, pointerArg):
         arg = str(SYS_RAM.LDA(pointerArg))
         try:
-            if int(self.registerA) < int(arg):
+            if int(self.registerA) > int(arg):
                 return True
             return False
         except:
             print('[Cannot Compare] Expected type INT')
             return False
     
-    def isLesserThanRegA(self, pointerArg):
+    def isRegASmaller(self, pointerArg):
         arg = str(SYS_RAM.LDA(pointerArg))
         try:
-            if int(self.registerA) > int(arg):
+            if int(self.registerA) < int(arg):
                 return True
             return False
         except:

@@ -1,11 +1,26 @@
-SET value_a
-STO 12
-SET value_b
-STO 10
-LDA value_a
-GRE value_b
+SET 0x01
+STO 56
+SET 0x02
+STO 90
+LDA 0x02
+CMP 0x01
 JEQ 9
-JMP 11
-LDA value_a
+JMP 12
+SET 0x00
+STO 'YouWin'
+DIS
+LDA 0x02
+GRE 0x01
+JEQ 16
+JMP 19
+SET 0x00
+STO 'Lower'
+DIS
+LDA 0x02
+LES 0x01
+JEQ 23
+JMP 26
+SET 0x00
+STO 'Higher'
 DIS
 HLT

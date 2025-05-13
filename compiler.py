@@ -37,7 +37,8 @@ def deconstruct(lines):
                 ]
             case 'print':
                 output += [
-                    f'LDA {line[1]}',
+                    f'SET 0x00',
+                    f'STO {line[1]}',
                     f'DIS'
                 ]
             case 'if':
@@ -57,9 +58,5 @@ with open('pre_compiled_test.st') as file:
 with open('template.st', 'w') as file:
     file.writelines("\n".join(compiled))
     
-
-
-#for i in program:
-#    print(i)
-
 # Automatically handles memory allocation
+# Reserve 0x00

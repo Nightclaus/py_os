@@ -1,7 +1,12 @@
-set value_a = 12
-set value_b = 10
+set "secret_number" = 56
+set "user_guess" = 90
 
-if value_a > value_b then
-  print value_a
+if "user_guess" == "secret_number" then
+  print "You Win"
 endif
-
+if "user_guess" < "secret_number" then
+  print "Higher"
+endif
+if "user_guess" > "secret_number" then
+  print "Lower"
+endif

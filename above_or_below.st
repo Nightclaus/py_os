@@ -27,12 +27,12 @@ JEQ 29
 JMP 34
 
 SET 0x02
-STO "Higher"
+STO "Lower"
 DIS
 JMP 6
 
 SET 0x02
-STO "Lower"
+STO "Higher"
 DIS
 JMP 6
 
