@@ -1,4 +1,4 @@
-randint secret_number = 56
+randint secret_number
 print secret_number
 
 while secret_number == secret_number do
