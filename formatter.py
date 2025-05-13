@@ -55,10 +55,10 @@ def IfElse(parg1, parg2, true_action, false_action):
 
     if_template[0] = f'LDA {parg1}'
     if_template[1] = f'CMP {parg2}'
-    if_template[2] = f'JEQ {len(true_action) + 2}' # Current position + next position
-    if_template[3] = true_action
-    if_template[4] = f'JMP {len(false_action) + 1}' 
-    if_template[5] = false_action
+    if_template[2] = f'JEQ {len(false_action) + 2}' # Current position + next position
+    if_template[3] = false_action
+    if_template[4] = f'JMP {len(true_action) + 1}' 
+    if_template[5] = true_action
 
     return flatten(if_template)
 

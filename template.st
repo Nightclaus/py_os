@@ -1,7 +1,11 @@
-RAN
+SET value_a
+STO 12
+SET value_b
+STO 10
+LDA value_a
+CMP ==
+JEQ 11
+LDA value_a
 DIS
-INC 1
-LDA 0
-CMP 1
-NOT
-JEQ 1
+JMP 11
+HLT
