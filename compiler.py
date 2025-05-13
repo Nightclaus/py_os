@@ -38,7 +38,7 @@ def deconstruct(lines):
             case 'print':
                 output += [
                     f'SET 0x00',
-                    f'STO {line[1]}',
+                    f'STO {" ".join(line[1:])}',
                     f'DIS'
                 ]
             case 'if':
