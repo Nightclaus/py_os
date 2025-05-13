@@ -126,7 +126,7 @@ def deconstruct(lines):
     return flatten(output)
 
 compiled = []
-with open('pre_compiled_test.st') as file:
+with open('workspace.st') as file:
     lines = [line.strip('\n') for line in file.readlines()]
     compiled = finalise_jumps_in_context(deconstruct(lines))
     compiled.append('HLT')
