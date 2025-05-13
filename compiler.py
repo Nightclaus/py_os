@@ -18,6 +18,12 @@ def getFreeMemory():
     currentMemory+=1
     return hex(currentMemory)
 
+def getTrueFalseAction(lines):
+    for index, line in enumerate(lines):
+        if str(line).strip() == 'else':
+            return lines[:index], lines[index+1:]
+    return lines, [] ## No else statement
+
 variable_map = {}
 
 def deconstruct(lines):
@@ -80,11 +86,16 @@ def deconstruct(lines):
                     'RAN',
                     'RGA'
                 ]
+            case 'else':
+                output += [
+                    'else' ## Preserve Else statements
+                ]
             case 'if':
                 nested_lines, completed_lines = deconstruct(lines[LINE_COMPLETED:])
                 LINE_COMPLETED += completed_lines ## Skip the lines that have been done in the for loop
+                trueAction, falseAction = getTrueFalseAction(flatten(nested_lines)) 
                 output += [
-                    IfElse(line[1], line[3], flatten(nested_lines), [], line[2])
+                    IfElse(line[1], line[3], trueAction, falseAction, line[2])
                 ]
             case 'while':
                 nested_lines, completed_lines = deconstruct(lines[LINE_COMPLETED:]) 

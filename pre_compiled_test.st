@@ -9,8 +9,7 @@ while secret_number == secret_number do
   endif
   if user_guess < secret_number then
     print "Higher"
-  endif
-  if user_guess > secret_number then
+  else
     print "Lower"
   endif
 endwhile

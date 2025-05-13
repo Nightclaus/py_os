@@ -3,7 +3,7 @@ RAN
 RGA
 LDA 0x1
 NCP 0x1
-JEQ 33
+JEQ 29
 SET 0x2
 INP "What is your guess "
 RGA
@@ -17,17 +17,13 @@ DIS
 HLT
 LDA 0x2
 LES 0x1
-JEQ 22
-JMP 25
-SET 0x00
-STO "Higher"
-DIS
-LDA 0x2
-GRE 0x1
-JEQ 29
-JMP 32
+JEQ 25
 SET 0x00
 STO "Lower"
+DIS
+JMP 28
+SET 0x00
+STO "Higher"
 DIS
 JMP 4
 HLT
