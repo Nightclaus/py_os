@@ -49,7 +49,8 @@ def IfElse(parg1, parg2, true_action, false_action, mode='=='):
     operator = {
         '==': 'CMP',
         '>': "GRE", 
-        '<': "LES"
+        '<': "LES",
+        '!=': "NCP"
     }[mode]
     if_template = COMMAND_LOOKUP['if']
 
@@ -66,7 +67,7 @@ def While(parg1, parg2, while_action):
     if_template = COMMAND_LOOKUP['while']
 
     if_template[0] = f'LDA {parg1}'
-    if_template[1] = f'CMP {parg2}'
+    if_template[1] = f'NCP {parg2}'
     if_template[2] = f'JEQ {len(while_action) + 2}' # Current position + next position
     if_template[3] = while_action
     if_template[4] = f'JMP -{len(while_action) + 3}' # Current position + next position

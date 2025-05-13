@@ -20,6 +20,7 @@ commands = {
     "INC": "self.increment",
     "NOT": "self.inverse",
     "JPA": "self.jumpToValueInRegisterA",
+    "NCP": "self.notCompare",
 }
 
 class Core():
@@ -83,6 +84,9 @@ class Core():
         else:
             self.printDebug(f'COMPARE [ {arg} is NOT equal to {regA} ] => False')
             return False
+    
+    def notCompare(self, pointerArg):
+        return not self.compare(pointerArg)
     
     def add(self, pointerArg): ## CHECK THIS
         try:

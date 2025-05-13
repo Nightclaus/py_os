@@ -1,6 +1,7 @@
 from formatter import IfElse, Print, Repeat, While, flatten
 
 # TODO Get Print, Repeat, While into the thing
+# TODO Add NCP (Not compare)
 
 def finalise_jumps_in_context(program):
     for index, line in enumerate(program):
@@ -59,6 +60,10 @@ def deconstruct(lines):
                         f'STO {" ".join(line[1:])}',
                         f'DIS'
                     ]
+            case 'end':
+                output += [
+                    'HLT'
+                ]
             case 'input':
                 allocated_memory = getFreeMemory()
                 variable_map[" ".join(line[:len(line)-2:-1])] = allocated_memory
@@ -79,7 +84,13 @@ def deconstruct(lines):
                 nested_lines, completed_lines = deconstruct(lines[LINE_COMPLETED:])
                 LINE_COMPLETED += completed_lines ## Skip the lines that have been done in the for loop
                 output += [
-                    IfElse(line[1], line[3], nested_lines, [], line[2]) # Hardcoded for now
+                    IfElse(line[1], line[3], flatten(nested_lines), [], line[2])
+                ]
+            case 'while':
+                nested_lines, completed_lines = deconstruct(lines[LINE_COMPLETED:]) 
+                LINE_COMPLETED += completed_lines ## Skip the lines that have been done in the for loop
+                output += [
+                    While(line[1], line[3], flatten(nested_lines)) ## Not sure why i hvae to flatten again but yeah
                 ]
     return flatten(output)
 
