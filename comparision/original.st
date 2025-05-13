@@ -1,0 +1,24 @@
+SET 0x00 
+RAN
+RGA
+SET 0x01
+INP 'Guess a number! '
+RGA 
+LDA 0x01
+NCP 0x00
+JEQ 14
+SET 0x02
+STO "You win"
+DIS
+HLT
+LDA 0x01
+GRE 0x00
+JEQ 21
+SET 0x02
+STO "Higher"
+DIS
+JMP 4
+SET 0x02
+STO "Lower"
+DIS
+JMP 4

@@ -1,4 +1,4 @@
-SET 0x1
+SET 0x1 // Can optimise to 27 lines via properly handling If and Else
 RAN
 RGA
 LDA 0x1

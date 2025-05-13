@@ -1,5 +1,5 @@
 randint secret_number = 56
-print secret_number
+## print secret_number
 
 while secret_number == secret_number do
   input "What is your guess " = user_guess

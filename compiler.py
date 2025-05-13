@@ -29,7 +29,7 @@ def deconstruct(lines):
         line = lines[LINE_COMPLETED]
         LINE_COMPLETED += 1
         HAS_VARIABLE = False
-        if line == '':
+        if line == '' or line.startswith('##'):
             continue
         line = line.split()
         command = line[0].lower()
