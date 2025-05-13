@@ -14,10 +14,14 @@ def finalise_jumps_in_context(program):
 # Automatically handles memory allocation
 currentMemory = 0 # Reserve 0x00
 def getFreeMemory():
+    global currentMemory
     currentMemory+=1
     return hex(currentMemory)
 
+variable_map = {}
+
 def deconstruct(lines):
+    global variable_map
     output = []
     LINE_COMPLETED = 0
     LIMIT = len(lines)
@@ -28,29 +32,39 @@ def deconstruct(lines):
             continue
         line = line.split()
         command = line[0].lower()
+        for index, part in enumerate(line):
+            if part in variable_map:
+                line[index] = variable_map[part]
         if command in ["endif", "endwhile", "endfor"]:
             return output, LINE_COMPLETED
         match command: # else
             case 'set':
+                allocated_memory = getFreeMemory()
+                variable_map[line[1]] = allocated_memory
                 output += [
-                    f'SET {line[1]}',
+                    f'SET {allocated_memory}',
                     f'STO {line[3]}'
                 ]
             case 'print':
+                ## Do different if it is a variable or not
                 output += [
                     f'SET 0x00',
                     f'STO {" ".join(line[1:])}',
                     f'DIS'
                 ]
             case 'input':
+                allocated_memory = getFreeMemory()
+                variable_map[" ".join(line[:len(line)-2:-1])] = allocated_memory
                 output += [
-                    f'SET {" ".join(line[:len(line)-2:-1])}',
+                    f'SET {allocated_memory}',
                     f'INP {" ".join(line[1:len(line)-2])}',
                     'RGA'
                 ]
             case 'randint':
+                allocated_memory = getFreeMemory()
+                variable_map[line[1]] = allocated_memory
                 output += [
-                    f'SET {line[1]}',
+                    f'SET {allocated_memory}',
                     'RAN',
                     'RGA'
                 ]
