@@ -5,6 +5,10 @@ IDENTIFIER = 'IDENTIFIER_'
 IDENTIFIER_INCREMENT = 0
 
 COMMAND_LOOKUP = {
+    "print": [
+        "LDA 0x00"
+        "DIS"
+    ],
     "if": [
         "LDA 0x01",
         "CMP 0x00",
@@ -79,7 +83,7 @@ def _while(parg1, parg2, while_action):
 
 def _repeat(parg1, parg2, repeat_action):
     """
-    parg1 is amount of time to repeat
+    parg1 is amount of times to repeat
     parg2 is internal
     """
     if_template = COMMAND_LOOKUP['while']
@@ -92,6 +96,12 @@ def _repeat(parg1, parg2, repeat_action):
     if_template[5] = f'JEQ -{len(repeat_action) + 4}'
 
     return flatten(if_template)
+
+def _print(parg1):
+    return [
+        f'LDA {parg1}',
+        'DIS'
+    ]
 
 #program = _if_else(0x00, 0x01, ['RAN', 'DIS'], ['RAN', 'DIS'])
 #program = _while(0x00, 0x01, ['RAN', 'DIS'])
