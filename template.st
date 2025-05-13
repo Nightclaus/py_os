@@ -1,11 +1,11 @@
-SET 0x00
+SET value_a
 STO 12
-SET 0x01
+SET value_b
 STO 10
-LDA 0x00
-CMP 0x01
+LDA value_a
+GRE value_b
 JEQ 9
 JMP 11
-LDA 0x00
+LDA value_a
 DIS
 HLT

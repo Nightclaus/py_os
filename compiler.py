@@ -44,7 +44,7 @@ def deconstruct(lines):
                 nested_lines, completed_lines = deconstruct(lines[LINE_COMPLETED:])
                 LINE_COMPLETED += completed_lines ## Skip the lines that have been done in the for loop
                 output += [
-                    IfElse(line[1], line[3], nested_lines, []) # Hardcoded for now
+                    IfElse(line[1], line[3], nested_lines, [], line[2]) # Hardcoded for now
                 ]
     return flatten(output)
 

@@ -45,11 +45,16 @@ def flatten(lst):
             result.append(item)
     return result
 
-def IfElse(parg1, parg2, true_action, false_action):
+def IfElse(parg1, parg2, true_action, false_action, mode='=='):
+    operator = {
+        '==': 'CMP',
+        '>': "GRE", 
+        '<': "LES"
+    }[mode]
     if_template = COMMAND_LOOKUP['if']
 
     if_template[0] = f'LDA {parg1}'
-    if_template[1] = f'CMP {parg2}'
+    if_template[1] = f'{operator} {parg2}'
     if_template[2] = f'JEQ {len(false_action) + 2}' # Current position + next position
     if_template[3] = false_action
     if_template[4] = f'JMP {len(true_action) + 1}' 
