@@ -1,26 +1,27 @@
-SET 0x01
+SET "secret_number"
 STO 56
-SET 0x02
-STO 90
-LDA 0x02
-CMP 0x01
-JEQ 9
-JMP 12
+SET "user_guess"
+INP "What is your guess"
+RGA
+LDA "user_guess"
+CMP "secret_number"
+JEQ 10
+JMP 13
 SET 0x00
-STO 'YouWin'
+STO "You Win"
 DIS
-LDA 0x02
-GRE 0x01
-JEQ 16
-JMP 19
+LDA "user_guess"
+LES "secret_number"
+JEQ 17
+JMP 20
 SET 0x00
-STO 'Lower'
+STO "Higher"
 DIS
-LDA 0x02
-LES 0x01
-JEQ 23
-JMP 26
+LDA "user_guess"
+GRE "secret_number"
+JEQ 24
+JMP 27
 SET 0x00
-STO 'Higher'
+STO "Lower"
 DIS
 HLT

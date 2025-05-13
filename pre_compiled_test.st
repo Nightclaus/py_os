@@ -1,5 +1,5 @@
 set "secret_number" = 56
-set "user_guess" = 90
+input "What is your guess" = "user_guess"
 
 if "user_guess" == "secret_number" then
   print "You Win"

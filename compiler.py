@@ -11,10 +11,11 @@ def finalise_jumps_in_context(program):
             program[index] = f'{command} {(index+1) + int(line_components[1])}'
     return program
 
-# Examples
-#program = IfElse(0x00, 0x01, ['RAN', 'DIS'], ['RAN', 'DIS'])
-#program = While(0x00, 0x01, ['RAN', 'DIS'])
-#program = finalise_jumps_in_context(Repeat(0x00, 0x01, ['RAN', 'DIS']))
+# Automatically handles memory allocation
+currentMemory = 0 # Reserve 0x00
+def getFreeMemory():
+    currentMemory+=1
+    return hex(currentMemory)
 
 def deconstruct(lines):
     output = []
@@ -41,6 +42,18 @@ def deconstruct(lines):
                     f'STO {" ".join(line[1:])}',
                     f'DIS'
                 ]
+            case 'input':
+                output += [
+                    f'SET {" ".join(line[:len(line)-2:-1])}',
+                    f'INP {" ".join(line[1:len(line)-2])}',
+                    'RGA'
+                ]
+            case 'randint':
+                output += [
+                    f'SET {line[1]}',
+                    'RAN',
+                    'RGA'
+                ]
             case 'if':
                 nested_lines, completed_lines = deconstruct(lines[LINE_COMPLETED:])
                 LINE_COMPLETED += completed_lines ## Skip the lines that have been done in the for loop
@@ -57,6 +70,3 @@ with open('pre_compiled_test.st') as file:
 
 with open('template.st', 'w') as file:
     file.writelines("\n".join(compiled))
-    
-# Automatically handles memory allocation
-# Reserve 0x00
