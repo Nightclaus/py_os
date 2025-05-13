@@ -1,7 +1,6 @@
 from formatter import IfElse, Print, Repeat, While, flatten
 
 # TODO Get Print, Repeat, While into the thing
-# TODO Get the auto variable assigment table done
 
 def finalise_jumps_in_context(program):
     for index, line in enumerate(program):
@@ -28,6 +27,7 @@ def deconstruct(lines):
     while LINE_COMPLETED < LIMIT:
         line = lines[LINE_COMPLETED]
         LINE_COMPLETED += 1
+        HAS_VARIABLE = False
         if line == '':
             continue
         line = line.split()
@@ -35,6 +35,7 @@ def deconstruct(lines):
         for index, part in enumerate(line):
             if part in variable_map:
                 line[index] = variable_map[part]
+                HAS_VARIABLE = True
         if command in ["endif", "endwhile", "endfor"]:
             return output, LINE_COMPLETED
         match command: # else
@@ -47,11 +48,17 @@ def deconstruct(lines):
                 ]
             case 'print':
                 ## Do different if it is a variable or not
-                output += [
-                    f'SET 0x00',
-                    f'STO {" ".join(line[1:])}',
-                    f'DIS'
-                ]
+                if HAS_VARIABLE:
+                    output += [
+                        f'LDA {line[1]}',
+                        f'DIS'
+                    ]
+                else:
+                    output += [
+                        f'SET 0x00',
+                        f'STO {" ".join(line[1:])}',
+                        f'DIS'
+                    ]
             case 'input':
                 allocated_memory = getFreeMemory()
                 variable_map[" ".join(line[:len(line)-2:-1])] = allocated_memory
