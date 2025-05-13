@@ -1,7 +1,6 @@
-from formatter import IfElse, Print, Repeat, While, flatten
+from formatter import IfElse, Repeat, While, flatten
 
-# TODO Get Print, Repeat, While into the thing
-# TODO Add NCP (Not compare)
+# TODO Get Repeat into the thing
 
 def finalise_jumps_in_context(program):
     for index, line in enumerate(program):
@@ -43,7 +42,7 @@ def deconstruct(lines):
             if part in variable_map:
                 line[index] = variable_map[part]
                 HAS_VARIABLE = True
-        if command in ["endif", "endwhile", "endfor"]:
+        if command in ["endif", "endwhile", "endfor", "endrepeat"]:
             return output, LINE_COMPLETED
         match command: # else
             case 'set':
@@ -103,6 +102,27 @@ def deconstruct(lines):
                 output += [
                     While(line[1], line[3], flatten(nested_lines)) ## Not sure why i hvae to flatten again but yeah
                 ]
+            case 'repeat':
+                ## Do different if it is a variable or not
+                internalCounterAddress = getFreeMemory()
+                output += [
+                    f'SET {internalCounterAddress}',
+                    f'STO 0'
+                ]
+
+                nested_lines, completed_lines = deconstruct(lines[LINE_COMPLETED:]) 
+                LINE_COMPLETED += completed_lines ## Skip the lines that have been done in the for loop
+                if HAS_VARIABLE:
+                    output += [
+                        Repeat(line[1], internalCounterAddress, nested_lines)
+                    ]
+                else:
+                    limitAddress = getFreeMemory()
+                    output += [
+                        f'SET {limitAddress}',
+                        f'STO {line[1]}',
+                        Repeat(limitAddress, internalCounterAddress, nested_lines)
+                    ]
     return flatten(output)
 
 compiled = []

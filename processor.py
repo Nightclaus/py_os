@@ -111,7 +111,7 @@ class Core():
             boolean = self.registerA
         else:
             boolean = SYS_RAM.LDA(pointerArg)
-        if boolean.lower() in ['true', 'false']:
+        if isinstance(boolean, bool):
             return not boolean
         else:
             print('[Cannot inverse] Expected type BOOLEAN')

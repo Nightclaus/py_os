@@ -3,10 +3,6 @@ END = 'HLT'
 CONTENT = 'content'
 
 COMMAND_LOOKUP = {
-    "print": [
-        "LDA 0x00"
-        "DIS"
-    ],
     "if": [
         "LDA 0x01",
         "CMP 0x00",
@@ -26,14 +22,9 @@ COMMAND_LOOKUP = {
         CONTENT,
         "INC 0x03",
         "LDA 0x02",  # Pointer for arg 1
-        "CMP 0x03",   # Pointer for arg 2
-        "NOT",       # Not completed
+        "NCP 0x03",   # Pointer for arg 2
         "JEQ START_REPEAT_1",
     ],
-    "storage": [
-        "SET 0x02",
-        "STO 4",
-    ]
 }
 
 def flatten(lst):
@@ -57,7 +48,7 @@ def IfElse(parg1, parg2, true_action, false_action, mode='=='):
     if_template[0] = f'LDA {parg1}'
     if_template[1] = f'{operator} {parg2}'
     if_template[2] = f'JEQ {len(false_action) + 2}' # Current position + next position
-    if_template[3] = false_action
+    if_template[3] = false_action                   # Unoptimised, does not discard vestigal jump for non-else Ifs
     if_template[4] = f'JMP {len(true_action) + 1}' 
     if_template[5] = true_action
 
@@ -79,19 +70,12 @@ def Repeat(parg1, parg2, repeat_action):
     parg1 is amount of times to repeat
     parg2 is internal
     """
-    if_template = COMMAND_LOOKUP['while']
+    if_template = COMMAND_LOOKUP['repeat']
 
     if_template[0] = repeat_action
     if_template[1] = f'INC {parg2}'
     if_template[2] = f'LDA {parg1}' 
-    if_template[3] = f'CMP {parg2}' 
-    if_template[4] = f'NOT' 
-    if_template[5] = f'JEQ -{len(repeat_action) + 4}'
+    if_template[3] = f'NCP {parg2}' 
+    if_template[4] = f'JEQ -{len(repeat_action) + 3}'
 
     return flatten(if_template)
-
-def Print(parg1):
-    return [
-        f'LDA {parg1}',
-        'DIS'
-    ]
