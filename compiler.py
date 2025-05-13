@@ -85,11 +85,11 @@ def _repeat(parg1, parg2, repeat_action):
     if_template = COMMAND_LOOKUP['while']
 
     if_template[0] = repeat_action
-    if_template[1] = f'INC {parg2}' # Current position + next position
-    if_template[2] = f'LDA {parg1}' # Current position + next position
-    if_template[3] = f'CMP {parg2}' # Current position + next position
-    if_template[4] = f'NOT' # Current position + next position
-    if_template[5] = f'JEQ -{len(repeat_action) + 4}' # Current position + next position
+    if_template[1] = f'INC {parg2}'
+    if_template[2] = f'LDA {parg1}' 
+    if_template[3] = f'CMP {parg2}' 
+    if_template[4] = f'NOT' 
+    if_template[5] = f'JEQ -{len(repeat_action) + 4}'
 
     return flatten(if_template)
 
