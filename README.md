@@ -9,6 +9,11 @@ This project is an educational exploration into low-level system architecture, c
 *   **Interpreter (`interpreter.py`)**: The OS "Kernel" that boots the system. It loads a compiled program, initializes the CPU core, and starts the execution cycle.
 *   **Compiler (`compiler.py`)**: A powerful tool that translates a high-level, human-readable language into the low-level assembly code that the CPU can understand.
 
+## Program Example
+In VSCode, simply run the `Above_or_Below.st` as I have added an overide onto VSCode so that the intpreter will default to `interpret.py`. For the syntax highlighting, I suggest DART's one as it is both clean and organised.
+
+![Example](py_os_above_or_below.png "Above or Below")
+
 ## The Two-Tier Language System
 
 PyOS features a two-tier programming system, separating high-level logic from low-level machine instructions.
@@ -52,6 +57,22 @@ This is the low-level language that the emulated CPU executes directly. It consi
 | `RAN` | Stores a random integer in Register A. |
 | `HLT` | Halts program execution. |
 
+### 3. Logic structures
+I have prebuilt logic structures in `detailed_template.st`
+
+It covers all structures that are enabled by they system. Here is an example of the If/Else
+```sh
+// IF ELSE
+LDA 0x01 // Pointer for arg 1
+CMP 0x00 // Pointer for arg 2
+JEQ 19   // True
+JMP 22   // False
+// Content
+JMP 21   // Move to ENDIF
+// Content
+JMP 21   // Move to ENDIF
+```
+However, as these stuctures rely on physical jumps, the latter compiler system performs both structures and jumps in the final code.
 
 ## How to Use PyOS
 
@@ -66,6 +87,7 @@ Run the `compiler.py` to translate your high-level code into low-level `.st` ass
 
 ```sh
 python compiler.py
+```
 
 This process converts your variables into memory addresses and your loops/conditionals into a series of CMP and JEQ instructions.
 ### Step 3: Run the Compiled Assembly
@@ -75,3 +97,5 @@ Execute the program using the interpreter.py, which loads and runs the compiled 
 python interpreter.py template.st
 
 The interpreter will start the CPU, which will execute the assembly instructions one by one until it hits a HLT command.
+
+
